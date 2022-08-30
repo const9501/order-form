@@ -1,0 +1,75 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+
+}
+
+body {
+  background-color: #dadada;
+}
+
+.modal {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+@mixin defaultError() {
+  font-size: 14px;
+  color: #dc7373;
+}
+
+form {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #eeeeee;
+  padding: 50px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+
+  .product-type {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10vw;
+  }
+
+  .feature {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .total-price {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .submit-button {
+    margin: 0 auto;
+  }
+
+  .form-error-message {
+    margin-top: -15px;
+    @include defaultError;
+  }
+
+  .select-error-message {
+    @include defaultError;
+  }
+
+  .error-field {
+    background-color: #fddcdc;
+    input {
+      color: #e35353;
+    }
+
+  }
+
+}
