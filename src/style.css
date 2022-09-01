@@ -60,5 +60,11 @@ form .error-field {
 form .error-field input {
   color: #e35353;
 }
+form .close-btn {
+  cursor: pointer;
+  position: absolute;
+  right: 20px;
+  top: 20px;
+}
 
 /*# sourceMappingURL=style.css.map */

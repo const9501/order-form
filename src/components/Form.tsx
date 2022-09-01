@@ -8,6 +8,8 @@ import CustomSelect from "./CustomSelect";
 import {useForm, FormProvider} from "react-hook-form";
 import {yupResolver} from "@hookform/resolvers/yup";
 import * as yup from 'yup';
+import CloseIcon from '@mui/icons-material/Close';
+import TransitionAlerts from "./TransitionAlerts";
 
 interface IOrderForm {
   firstName: string,
@@ -20,7 +22,11 @@ interface IOrderForm {
   totalPrice: number
 }
 
-const Form: React.FC = () => {
+interface IFormProps {
+  handleClose: () => void
+}
+
+const Form: React.FC<IFormProps> = ({handleClose}) => {
 
   const productTypes = [
     {
@@ -61,9 +67,21 @@ const Form: React.FC = () => {
       .required('Please select product type.'),
   })
 
+  const defaultValues = {
+    firstName: '',
+    lastName: '',
+    email: '',
+    productType: 0,
+    feature100: 0,
+    feature200: 0,
+    comment: '',
+    totalPrice: 0
+  };
+
   const methods = useForm<IOrderForm>({
     mode: 'all',
-    resolver: yupResolver(orderValidationSchema)
+    resolver: yupResolver(orderValidationSchema),
+
   })
 
   const {
@@ -77,13 +95,16 @@ const Form: React.FC = () => {
     const order = {...data, totalPrice};
     console.log(order);
     reset();
+    // handleClose()
+    setOpenAlert(true)
   })
 
-
+  const [openAlert, setOpenAlert] = useState(false);
+  const alertMessage = `The order for the amount of $${totalPrice} has been successfully formed`
   return (
     <FormProvider {...methods}>
       <form onSubmit={onSubmit}>
-
+        <CloseIcon className='close-btn' onClick={handleClose}/>
 
         <FormTitle
           variant='h4'
@@ -170,6 +191,11 @@ const Form: React.FC = () => {
           Send form
         </Button>
       </form>
+      <TransitionAlerts
+        open={openAlert}
+        setOpenAlert={setOpenAlert}
+        text={alertMessage}
+      />
     </FormProvider>
 
   );
